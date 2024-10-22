@@ -7,6 +7,8 @@ WORKDIR /app
 COPY go.mod go.sum ./
 RUN go mod download
 
+RUN go mod vendor
+
 COPY . .
 
 RUN go build --mod=vendor ./cmd/main.go
@@ -20,3 +22,5 @@ COPY --from=builder /app ./
 COPY --from=builder /app/main ./
 
 RUN chmod +x main
+
+CMD ["./main"]

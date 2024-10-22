@@ -32,5 +32,5 @@ gen-mocks:
 	@docker-compose run --rm app mockery --with-expecter=true --dir ./internal/controller --all --inpackage
 	@docker-compose run --rm app mockery --with-expecter=true --dir ./internal/repository --all --inpackage
 
-gen-orm:
+gen-model:
 	@docker-compose run --rm app sqlboiler psql -c sqlboiler.yaml

@@ -1,11 +1,15 @@
 version: '3'
 services:
   app:
+    image: friend.mgt
     build:
       context: ./
       dockerfile: Dockerfile
     ports:
       - ${PORT}:${PORT}
+    depends_on:
+      postgres: 
+        condition: service_healthy
     environment:
       - DB_URL=${DB_URL}
       - PORT=${PORT}
@@ -16,12 +20,18 @@ services:
 
   build:
     build:
-      context: .
-      dockerfile: Dockerfile-prod
+      context: ./
+      dockerfile: Dockerfile.release
     environment:
       - DB_URL=${DB_URL}
       - PORT=${PORT}
-    command: ["./main"]
+    ports:
+      - ${PORT}:${PORT}
+    depends_on:
+      postgres: 
+        condition: service_healthy
+    networks:
+      - friend-mgt
 
   postgres:
     image: postgres:15.1
@@ -33,6 +43,11 @@ services:
       - pgdata:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U friendmgt"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     networks:
       - friend-mgt
 

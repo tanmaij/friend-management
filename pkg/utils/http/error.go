@@ -2,18 +2,24 @@ package http
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 )
 
 // Error represents custom error
 type Error struct {
 	Status  int    `json:"status"`
-	Code    int    `json:"code"`
+	Code    string `json:"code"`
 	Message string `json:"message"`
 }
 
-// WriteToHttpResponseWriter writes a custom error into http.ResponseWriter
-func (e Error) WriteToHttpResponseWriter(w http.ResponseWriter) error {
+// Error implements Error method
+func (e Error) Error() string {
+	return fmt.Sprintf("Status: %d, Code: %s, Desc: %s", e.Status, e.Code, e.Message)
+}
+
+// WriteErrorToHttpResponseWriter writes a custom error into http.ResponseWriter
+func WriteErrorToHttpResponseWriter(w http.ResponseWriter, e Error) error {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(e.Status)
 

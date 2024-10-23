@@ -12,9 +12,9 @@ func WriteString(v string, httpStatus int, w http.ResponseWriter) {
 }
 
 // WriteJsonData writes the response with Json body to the given http.Writer with success status
-func WriteJsonData(v any, httpStatus int, w http.ResponseWriter) {
+func WriteJsonData(w http.ResponseWriter, httpStatus int, v any) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(httpStatus)
-	decodedData, _ := json.Marshal(v)
-	w.Write(decodedData)
+	encodedData, _ := json.Marshal(v)
+	w.Write(encodedData)
 }

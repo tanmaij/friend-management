@@ -5,9 +5,10 @@ import (
 	"net/http"
 
 	"github.com/tanmaij/friend-management/cmd/router"
-	"github.com/tanmaij/friend-management/internal/controller/relationship"
+	relationshipCtrl "github.com/tanmaij/friend-management/internal/controller/relationship"
 	"github.com/tanmaij/friend-management/internal/handler"
-	"github.com/tanmaij/friend-management/internal/repository"
+	relationshipRepo "github.com/tanmaij/friend-management/internal/repository/relationship"
+	userRepo "github.com/tanmaij/friend-management/internal/repository/user"
 	"github.com/tanmaij/friend-management/pkg/db/sql"
 	"github.com/tanmaij/friend-management/pkg/utils/env"
 )
@@ -27,10 +28,15 @@ func main() {
 	if err != nil {
 		log.Fatalf("failed to open connection to database: %v", err)
 	}
+
+	sqlDB.Close()
 	log.Println("successfully connected to database")
 
-	repositoryInstance := repository.New(sqlDB)
-	relationshipCtrlInstance := relationship.New(repositoryInstance)
+	relationshipRepoInstance := relationshipRepo.New(sqlDB)
+	userRepoInstance := userRepo.New(sqlDB)
+
+	relationshipCtrlInstance := relationshipCtrl.New(relationshipRepoInstance, userRepoInstance)
+
 	handlerInstance := handler.New(relationshipCtrlInstance)
 
 	r := router.InitRouter(handlerInstance)

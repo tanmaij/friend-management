@@ -14,6 +14,9 @@ run:
 run-build:
 	@docker-compose up build
 
+test:
+	@docker-compose --env-file .env run --rm app go test -v ./...
+
 # Database
 db:
 	@docker-compose up -d postgres
@@ -32,5 +35,6 @@ gen-mocks:
 	@docker-compose run --rm app mockery --with-expecter=true --dir ./internal/controller --all --inpackage
 	@docker-compose run --rm app mockery --with-expecter=true --dir ./internal/repository --all --inpackage
 
-gen-orm:
+gen-model:
 	@docker-compose run --rm app sqlboiler psql -c sqlboiler.yaml
+

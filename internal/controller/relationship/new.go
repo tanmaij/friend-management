@@ -3,20 +3,22 @@ package relationship
 import (
 	"context"
 
-	"github.com/tanmaij/friend-management/internal/repository"
+	"github.com/tanmaij/friend-management/internal/repository/relationship"
+	"github.com/tanmaij/friend-management/internal/repository/user"
 )
 
-// Controller defines the interface for managing friend connections, including creating a new friend connection.
+// Controller managing relationship business
 type Controller interface {
-	// CreateFriendConn handles the logic for creating a friend connection.
+	// CreateFriendConn handles the logic for creating a friend connection
 	CreateFriendConn(ctx context.Context, inp CreateFriendConnInp) error
 }
 
 type impl struct {
-	repo repository.Registry
+	relationshipRepo relationship.Repository
+	userRepo         user.Repository
 }
 
-// New creates a new instance of the Controller with the provided repository.
-func New(repo repository.Registry) Controller {
-	return &impl{repo: repo}
+// New creates a new instance of the Controller with the provided repositories
+func New(relationshipRepo relationship.Repository, userRepo user.Repository) Controller {
+	return &impl{relationshipRepo: relationshipRepo, userRepo: userRepo}
 }

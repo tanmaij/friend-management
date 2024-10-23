@@ -38,8 +38,6 @@ func ConnectDB(driverName DriverName, dbUrl string, options ConnectionOption) (*
 		return nil, err
 	}
 
-	defer db.Close()
-
 	// Set connection pool parameters using the provided options
 	db.SetMaxOpenConns(options.MaxOpenConnections) // Set maximum number of open connections
 	db.SetMaxIdleConns(options.MaxIdleConnections) // Set maximum number of idle connections

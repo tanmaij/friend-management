@@ -14,6 +14,9 @@ run:
 run-build:
 	@docker-compose up build
 
+test:
+	@docker-compose --env-file .env run --rm app go test -v ./...
+
 # Database
 db:
 	@docker-compose up -d postgres
@@ -34,3 +37,4 @@ gen-mocks:
 
 gen-model:
 	@docker-compose run --rm app sqlboiler psql -c sqlboiler.yaml
+

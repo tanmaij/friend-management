@@ -23,11 +23,11 @@ func WriteErrorToHttpResponseWriter(w http.ResponseWriter, e Error) error {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(e.Status)
 
-	decodedMessage, err := json.Marshal(e)
+	encodedData, err := json.Marshal(e)
 	if err != nil {
 		return err
 	}
 
-	w.Write(decodedMessage)
+	w.Write(encodedData)
 	return nil
 }

@@ -1,9 +1,7 @@
 package string
 
 import (
-	"net"
 	"regexp"
-	"strings"
 )
 
 // IsEmailValid checks if the email provided passes the required structure
@@ -17,11 +15,7 @@ func IsEmailValid(e string) bool {
 	if !emailRegex.MatchString(e) {
 		return false
 	}
-	parts := strings.Split(e, "@")
-	mx, err := net.LookupMX(parts[1])
-	if err != nil || len(mx) == 0 {
-		return false
-	}
+
 	return true
 }
 

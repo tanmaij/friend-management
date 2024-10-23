@@ -41,8 +41,8 @@ func TestHandler_CreateFriendConn(t *testing.T) {
 			mockCreateFriendConn: mockCreateFriendConn{
 				isCalled: true,
 				input: relationshipCtrl.CreateFriendConnInp{
-					RequesterEmail: "user1@example.com",
-					TargetEmail:    "user2@example.com",
+					PrimaryEmail:   "user1@example.com",
+					SecondaryEmail: "user2@example.com",
 				},
 				outputErr: nil,
 			},
@@ -83,6 +83,18 @@ func TestHandler_CreateFriendConn(t *testing.T) {
 				resErr:     errInvalidGivenEmail,
 			},
 		},
+		"cannot_be_friend_with_self": {
+			inputBody: `{
+					"friends":[
+					    "user1@example.com",
+						"user1@example.com"
+			  		]
+		          }`,
+			expOutput: output{
+				statusCode: http.StatusBadRequest,
+				resErr:     errCannotBeFriendWithSelf,
+			},
+		},
 		"user_not_found_with_given_email": {
 			inputBody: `{
 					"friends":[
@@ -93,8 +105,8 @@ func TestHandler_CreateFriendConn(t *testing.T) {
 			mockCreateFriendConn: mockCreateFriendConn{
 				isCalled: true,
 				input: relationshipCtrl.CreateFriendConnInp{
-					RequesterEmail: "user1@example.com",
-					TargetEmail:    "user2@example.com",
+					PrimaryEmail:   "user1@example.com",
+					SecondaryEmail: "user2@example.com",
 				},
 				outputErr: relationshipCtrl.ErrUserNotFoundWithGivenEmail,
 			},
@@ -103,7 +115,7 @@ func TestHandler_CreateFriendConn(t *testing.T) {
 				resErr:     errUserNotFoundWithGivenEmail,
 			},
 		},
-		"can_not_be_friends_due_to_already_friends": {
+		"cannot_be_friends_due_to_already_friends": {
 			inputBody: `{
 					"friends":[
 					    "user1@example.com",
@@ -113,8 +125,8 @@ func TestHandler_CreateFriendConn(t *testing.T) {
 			mockCreateFriendConn: mockCreateFriendConn{
 				isCalled: true,
 				input: relationshipCtrl.CreateFriendConnInp{
-					RequesterEmail: "user1@example.com",
-					TargetEmail:    "user2@example.com",
+					PrimaryEmail:   "user1@example.com",
+					SecondaryEmail: "user2@example.com",
 				},
 				outputErr: relationshipCtrl.ErrAlreadyFriends,
 			},
@@ -123,7 +135,7 @@ func TestHandler_CreateFriendConn(t *testing.T) {
 				resErr:     errAlreadyFriends,
 			},
 		},
-		"can_not_be_friends_due_to_already_blocked": {
+		"cannot_be_friends_due_to_already_blocked": {
 			inputBody: `{
 					"friends":[
 					    "user1@example.com",
@@ -133,8 +145,8 @@ func TestHandler_CreateFriendConn(t *testing.T) {
 			mockCreateFriendConn: mockCreateFriendConn{
 				isCalled: true,
 				input: relationshipCtrl.CreateFriendConnInp{
-					RequesterEmail: "user1@example.com",
-					TargetEmail:    "user2@example.com",
+					PrimaryEmail:   "user1@example.com",
+					SecondaryEmail: "user2@example.com",
 				},
 				outputErr: relationshipCtrl.ErrAlreadyBlocked,
 			},
@@ -153,8 +165,8 @@ func TestHandler_CreateFriendConn(t *testing.T) {
 			mockCreateFriendConn: mockCreateFriendConn{
 				isCalled: true,
 				input: relationshipCtrl.CreateFriendConnInp{
-					RequesterEmail: "user1@example.com",
-					TargetEmail:    "user2@example.com",
+					PrimaryEmail:   "user1@example.com",
+					SecondaryEmail: "user2@example.com",
 				},
 				outputErr: errors.New("an unexpecting error"),
 			},

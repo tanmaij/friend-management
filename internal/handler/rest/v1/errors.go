@@ -14,6 +14,7 @@ var (
 	errUserNotFoundWithGivenEmail = httpUtil.Error{Status: http.StatusBadRequest, Code: "user_not_found_with_given_email", Message: "User not found with given email"}
 	errAlreadyFriends             = httpUtil.Error{Status: http.StatusBadRequest, Code: "already_friends", Message: "Already friends"}
 	errAlreadyBlocked             = httpUtil.Error{Status: http.StatusBadRequest, Code: "already_blocked", Message: "Already blocked"}
+	errCannotBeFriendWithSelf     = httpUtil.Error{Status: http.StatusBadRequest, Code: "cannot_be_friend_with_self", Message: "Cannot be friend with self"}
 )
 
 func convertErrorFromController(err error) httpUtil.Error {

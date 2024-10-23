@@ -29,7 +29,7 @@ func main() {
 		log.Fatalf("failed to open connection to database: %v", err)
 	}
 
-	sqlDB.Close()
+	defer sqlDB.Close()
 	log.Println("successfully connected to database")
 
 	relationshipRepoInstance := relationshipRepo.New(sqlDB)

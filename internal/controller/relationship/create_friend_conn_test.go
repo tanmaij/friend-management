@@ -45,8 +45,8 @@ func Test_impl_CreateFriendConn(t *testing.T) {
 	}{
 		"success": {
 			input: CreateFriendConnInp{
-				RequesterEmail: "user1@example.com",
-				TargetEmail:    "user2@example.com",
+				PrimaryEmail:   "user1@example.com",
+				SecondaryEmail: "user2@example.com",
 			},
 			mockGetPrimaryUserByEmail: mockGetUserByEmail{
 				isCalled:   true,
@@ -75,8 +75,8 @@ func Test_impl_CreateFriendConn(t *testing.T) {
 		},
 		"primary_user_not_found_with_given_email": {
 			input: CreateFriendConnInp{
-				RequesterEmail: "user1@example.com",
-				TargetEmail:    "user2@example.com",
+				PrimaryEmail:   "user1@example.com",
+				SecondaryEmail: "user2@example.com",
 			},
 			mockGetPrimaryUserByEmail: mockGetUserByEmail{
 				isCalled:   true,
@@ -87,8 +87,8 @@ func Test_impl_CreateFriendConn(t *testing.T) {
 		},
 		"secondary_user_not_found_with_given_email": {
 			input: CreateFriendConnInp{
-				RequesterEmail: "user1@example.com",
-				TargetEmail:    "user2@example.com",
+				PrimaryEmail:   "user1@example.com",
+				SecondaryEmail: "user2@example.com",
 			},
 			mockGetPrimaryUserByEmail: mockGetUserByEmail{
 				isCalled:   true,
@@ -104,8 +104,8 @@ func Test_impl_CreateFriendConn(t *testing.T) {
 		},
 		"can_not_be_friends_due_to_already_friends": {
 			input: CreateFriendConnInp{
-				RequesterEmail: "user1@example.com",
-				TargetEmail:    "user2@example.com",
+				PrimaryEmail:   "user1@example.com",
+				SecondaryEmail: "user2@example.com",
 			},
 			mockGetPrimaryUserByEmail: mockGetUserByEmail{
 				isCalled:   true,
@@ -131,8 +131,8 @@ func Test_impl_CreateFriendConn(t *testing.T) {
 		},
 		"can_not_be_friends_due_to_already_blocked": {
 			input: CreateFriendConnInp{
-				RequesterEmail: "user1@example.com",
-				TargetEmail:    "user2@example.com",
+				PrimaryEmail:   "user1@example.com",
+				SecondaryEmail: "user2@example.com",
 			},
 			mockGetPrimaryUserByEmail: mockGetUserByEmail{
 				isCalled:   true,
@@ -158,8 +158,8 @@ func Test_impl_CreateFriendConn(t *testing.T) {
 		},
 		"unexpected_error_from_getting_primary_user": {
 			input: CreateFriendConnInp{
-				RequesterEmail: "user1@example.com",
-				TargetEmail:    "user2@example.com",
+				PrimaryEmail:   "user1@example.com",
+				SecondaryEmail: "user2@example.com",
 			},
 			mockGetPrimaryUserByEmail: mockGetUserByEmail{
 				isCalled:   true,
@@ -171,8 +171,8 @@ func Test_impl_CreateFriendConn(t *testing.T) {
 		},
 		"unexpected_error_from_getting_secondary_user": {
 			input: CreateFriendConnInp{
-				RequesterEmail: "user1@example.com",
-				TargetEmail:    "user2@example.com",
+				PrimaryEmail:   "user1@example.com",
+				SecondaryEmail: "user2@example.com",
 			},
 			mockGetPrimaryUserByEmail: mockGetUserByEmail{
 				isCalled:   true,
@@ -189,8 +189,8 @@ func Test_impl_CreateFriendConn(t *testing.T) {
 		},
 		"unexpected_error_from_listing_rels": {
 			input: CreateFriendConnInp{
-				RequesterEmail: "user1@example.com",
-				TargetEmail:    "user2@example.com",
+				PrimaryEmail:   "user1@example.com",
+				SecondaryEmail: "user2@example.com",
 			},
 			mockGetPrimaryUserByEmail: mockGetUserByEmail{
 				isCalled:   true,
@@ -214,8 +214,8 @@ func Test_impl_CreateFriendConn(t *testing.T) {
 		},
 		"unexpected_error_from_creating_rel": {
 			input: CreateFriendConnInp{
-				RequesterEmail: "user1@example.com",
-				TargetEmail:    "user2@example.com",
+				PrimaryEmail:   "user1@example.com",
+				SecondaryEmail: "user2@example.com",
 			},
 			mockGetPrimaryUserByEmail: mockGetUserByEmail{
 				isCalled:   true,

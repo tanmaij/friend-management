@@ -23,12 +23,19 @@ func (req createFriendConnRequest) validate() error {
 		return errInvalidRequestBody
 	}
 
-	if !stringUtil.IsEmailValid(strings.TrimSpace(req.Friends[0])) {
+	primaryEmail := strings.TrimSpace(req.Friends[0])
+	secondaryEmail := strings.TrimSpace(req.Friends[1])
+
+	if !stringUtil.IsEmailValid(primaryEmail) {
 		return errInvalidGivenEmail
 	}
 
-	if !stringUtil.IsEmailValid(strings.TrimSpace(req.Friends[1])) {
+	if !stringUtil.IsEmailValid(secondaryEmail) {
 		return errInvalidGivenEmail
+	}
+
+	if primaryEmail == secondaryEmail {
+		return errCannotBeFriendWithSelf
 	}
 
 	return nil
@@ -53,8 +60,8 @@ func (h Handler) CreateFriendConn(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := h.relationshipCtrl.CreateFriendConn(r.Context(), relationship.CreateFriendConnInp{
-		RequesterEmail: strings.TrimSpace(reqData.Friends[0]),
-		TargetEmail:    strings.TrimSpace(reqData.Friends[1]),
+		PrimaryEmail:   strings.TrimSpace(reqData.Friends[0]),
+		SecondaryEmail: strings.TrimSpace(reqData.Friends[1]),
 	}); err != nil {
 		converted := convertErrorFromController(err)
 		httpUtil.WriteErrorToHttpResponseWriter(w, converted)

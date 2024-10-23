@@ -15,7 +15,7 @@ run-build:
 	@docker-compose up build
 
 test:
-	@docker-compose --env-file .env run --rm app go test -v ./...
+	@docker-compose --env-file .env run --rm app go test -mod=vendor -p 1 -v ./...
 
 # Database
 db:

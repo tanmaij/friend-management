@@ -14,6 +14,9 @@ type Repository interface {
 
 	// ListByTwoUserIDs lists relationships between two user ids
 	ListByTwoUserIDs(ctx context.Context, primaryUserID, secondaryUserID int) ([]model.Relationship, error)
+
+	// ListFriendByEmail lists friends for an email, returning a list of users and total count
+	ListFriendByEmail(ctx context.Context, email string) ([]model.User, int64, error)
 }
 
 type impl struct {

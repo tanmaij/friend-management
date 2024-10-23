@@ -11,6 +11,9 @@ import (
 type Controller interface {
 	// CreateFriendConn handles the logic for creating a friend connection
 	CreateFriendConn(ctx context.Context, inp CreateFriendConnInp) error
+
+	// ListFriendsByEmail handles the logic for a listing friends for an email address
+	ListFriendByEmail(ctx context.Context, inp ListFriendByEmailInput) (ListFriendByEmailOutput, error)
 }
 
 type impl struct {

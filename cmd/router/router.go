@@ -26,6 +26,7 @@ func v1Route(r chi.Router, h v1.Handler) {
 	r.Route("/api/v1", func(apiV1Router chi.Router) {
 		apiV1Router.Route("/relationship", func(relRouter chi.Router) {
 			relRouter.Post("/friend", h.CreateFriendConn)
+			relRouter.Post("/friend/list", h.ListFriendByEmail)
 		})
 	})
 }

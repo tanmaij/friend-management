@@ -1,40 +1,84 @@
-.PHONY: setup teardown run run-build db db-migrate db-migrate-down gen-migration-file gen-mocks gen-orm
+.PHONY: setup teardown run start run-build db db-migrate db-migrate-down gen-migration-file gen-mocks gen-orm test help vendor
+
+# App props
+APP_VERSION := 0.8.21
+
+# Variable
+DEV_SERVICE := app
+DB_SERVICE := postgres
+DB_URL := $$DB_URL
+
+# Help
+help:
+	@echo "Available targets:"
+	@echo "  setup              : Setup the environment (start db and migrate)"
+	@echo "  teardown           : Stop and remove containers"
+	@echo "  run                : Run the application"
+	@echo "  run-build          : Build the application"
+	@echo "  test               : Run tests"
+	@echo "  db                 : Start the database"
+	@echo "  db-migrate         : Migrate database up"
+	@echo "  db-migrate-down    : Migrate database down"
+	@echo "  gen-migration-file  : Generate new migration file"
+	@echo "  gen-mocks          : Generate mocks"
+	@echo "  gen-model          : Generate models"
 
 # Setup and Teardown
 setup: db db-migrate
 
 teardown:
-	@docker-compose down --volumes
-	@docker-compose rm --force --stop -v
+	@echo "Teardown: stopping and removing containers..."
+	@docker compose down --volumes
+	@docker compose rm --force --stop -v
 
-# Application
+# App
+start: db db-migrate run
+
 run:
-	@docker-compose run --rm --service-ports app go run -mod=vendor cmd/main.go
+	@echo "Running application..."
+	@docker compose run --rm --service-ports $(DEV_SERVICE) go run -mod=vendor cmd/main.go
 
-run-build:
-	@docker-compose up build
+build:
+	@echo "Building application..."
+	@export APP_VERSION=$(APP_VERSION) && docker compose up build
+
+clear-build:
+	@echo "Clearing old builds and images..."
+	@docker compose down --volumes build
+	@docker compose rm --force --stop -v build
+	@docker rmi friend-management-api:v${APP_VERSION}
 
 test:
-	@docker-compose --env-file .env run --rm app go test -mod=vendor -p 1 -v ./...
+	@echo "Running tests..."
+	@docker compose run --rm $(DEV_SERVICE) go test -mod=vendor -p 1 -v ./...
+
+vendor: 
+	@echo "Updating vendor..."
+	@docker compose run --rm $(DEV_SERVICE) go mod tidy && go mod vendor
 
 # Database
 db:
-	@docker-compose up -d postgres
+	@echo "Starting database..."
+	@docker compose up -d $(DB_SERVICE)
 
 db-migrate:
-	@docker-compose run --rm app migrate -path data/migrations -database postgres://friendmgt:friendmgt@postgres:5432/friend-management?sslmode=disable up
+	@echo "Migrating database up..."
+	@docker compose run --rm $(DEV_SERVICE) sh -c 'migrate -path data/migrations -database $(DB_URL) up || { echo "Migration failed"; exit 1; }'
 
 db-migrate-down:
-	@docker-compose run --rm app migrate -path data/migrations -database postgres://friendmgt:friendmgt@postgres:5432/friend-management?sslmode=disable down
+	@echo "Migrating database down..."
+	@docker compose run --rm $(DEV_SERVICE) sh -c 'migrate -path data/migrations -database $(DB_URL) down || { echo "Migration down failed"; exit 1; }'
 
-# Generation tools
+# Generation tool
 gen-migration-file:
-	@docker-compose run --rm app migrate create -ext sql -dir data/migrations -seq new_migration_file
+	@echo "Generating new migration file..."
+	@docker compose run --rm $(DEV_SERVICE) migrate create -ext sql -dir data/migrations -seq new_migration_file
 
 gen-mocks:
-	@docker-compose run --rm app mockery --with-expecter=true --dir ./internal/controller --all --inpackage
-	@docker-compose run --rm app mockery --with-expecter=true --dir ./internal/repository --all --inpackage
+	@echo "Generating mocks..."
+	@docker compose run --rm $(DEV_SERVICE) mockery --with-expecter=true --dir ./internal/controller --all --inpackage
+	@docker compose run --rm $(DEV_SERVICE) mockery --with-expecter=true --dir ./internal/repository --all --inpackage
 
 gen-model:
-	@docker-compose run --rm app sqlboiler psql -c sqlboiler.yaml
-
+	@echo "Generating models..."
+	@docker compose run --rm $(DEV_SERVICE) sqlboiler psql -c sqlboiler.yaml

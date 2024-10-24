@@ -3,6 +3,9 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
+	"os/signal"
+	"syscall"
 
 	"github.com/tanmaij/friend-management/cmd/router"
 	relationshipCtrl "github.com/tanmaij/friend-management/internal/controller/relationship"
@@ -40,6 +43,14 @@ func main() {
 	handlerInstance := handler.New(relationshipCtrlInstance)
 
 	r := router.InitRouter(handlerInstance)
+
+	sigs := make(chan os.Signal, 1)
+	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
+	go func() {
+		sig := <-sigs
+		log.Printf("received signal: %s. shutting down...\n", sig)
+		os.Exit(0)
+	}()
 
 	log.Println("server is running on port:", config.Port)
 	if err := http.ListenAndServe(":"+config.Port, r); err != nil {

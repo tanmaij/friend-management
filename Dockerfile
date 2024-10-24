@@ -1,6 +1,8 @@
 # syntax=docker/dockerfile:1
 FROM golang:1.23.2-alpine
 
+ENV GOPROXY=https://proxy.golang.org,direct
+
 WORKDIR /app
 
 RUN go install github.com/volatiletech/sqlboiler/v4@v4.16.2 \

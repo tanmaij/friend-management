@@ -1,7 +1,6 @@
-version: '3'
 services:
   app:
-    image: friend.mgt
+    image: friend-management-api:dev
     build:
       context: ./
       dockerfile: Dockerfile
@@ -22,14 +21,12 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile.release
+    image: friend-management-api:${APP_VERSION}
     environment:
       - DB_URL=${DB_URL}
       - PORT=${PORT}
     ports:
       - ${PORT}:${PORT}
-    depends_on:
-      postgres: 
-        condition: service_healthy
     networks:
       - friend-mgt
 

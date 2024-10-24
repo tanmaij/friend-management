@@ -41,6 +41,7 @@ func (i *impl) ListTwoEmailsCommonFriends(ctx context.Context, primaryEmail stri
 			primaryEmail, secondadryEmail,
 		),
 		qm.GroupBy(fmt.Sprintf("%s.%s", model.TableNames.Users, model.UserColumns.ID)),
+		qm.OrderBy(fmt.Sprintf("%s.%s ASC", model.TableNames.Users, model.UserColumns.ID)),
 	}
 
 	foundSlice, err := model.Users(

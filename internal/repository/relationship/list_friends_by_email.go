@@ -32,6 +32,7 @@ func (i *impl) ListFriendByEmail(ctx context.Context, email string) ([]model.Use
 			email,
 		),
 		qm.GroupBy(fmt.Sprintf("%s.%s", model.TableNames.Users, model.UserColumns.ID)),
+		qm.OrderBy(fmt.Sprintf("%s.%s ASC", model.TableNames.Users, model.UserColumns.ID)),
 	}
 
 	foundSlice, err := model.Users(

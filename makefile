@@ -15,6 +15,7 @@ help:
 	@echo "  teardown           : Stop and remove containers"
 	@echo "  run                : Run the application"
 	@echo "  run-build          : Build the application"
+	@echo "  vendor          	: Update vendor"
 	@echo "  test               : Run tests"
 	@echo "  db                 : Start the database"
 	@echo "  db-migrate         : Migrate database up"

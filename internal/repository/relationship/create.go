@@ -3,9 +3,9 @@ package relationship
 import (
 	"context"
 
+	"github.com/friendsofgo/errors"
 	"github.com/tanmaij/friend-management/internal/model"
 
-	"github.com/pkg/errors"
 	"github.com/volatiletech/sqlboiler/v4/boil"
 )
 

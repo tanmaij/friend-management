@@ -28,6 +28,7 @@ func v1Route(r chi.Router, h v1.Handler) {
 			relRouter.Post("/friend", h.CreateFriendConn)
 			relRouter.Post("/friend/list", h.ListFriendByEmail)
 			relRouter.Post("/friend/list-common", h.ListTwoEmailsCommonFriends)
+			relRouter.Post("/subscribe", h.Subscribe)
 		})
 	})
 }

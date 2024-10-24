@@ -24,16 +24,16 @@ func InitRouter(handler handler.Handler) *chi.Mux {
 
 func v1Route(r chi.Router, h v1.Handler) {
 	r.Route("/api/v1", func(apiV1Router chi.Router) {
-		apiV1Router.Route("/relationship", func(relRouter chi.Router) {
-			relRouter.Post("/friend", h.CreateFriendConn)
-			relRouter.Post("/friend/list", h.ListFriendByEmail)
-			relRouter.Post("/friend/list-common", h.ListTwoEmailsCommonFriends)
-			relRouter.Post("/subscribe", h.Subscribe)
-			relRouter.Post("/block", h.Block)
+		apiV1Router.Route("/relationships", func(relRouter chi.Router) {
+			relRouter.Post("/friends", h.CreateFriendConn)
+			relRouter.Post("/friends/list", h.ListFriendByEmail)
+			relRouter.Post("/friends/list-common", h.ListTwoEmailsCommonFriends)
+			relRouter.Post("/subscribes", h.Subscribe)
+			relRouter.Post("/blocks", h.Block)
 		})
 
-		apiV1Router.Route("/update", func(relRouter chi.Router) {
-			relRouter.Post("/recipient", h.ListEligibleRecipientEmailsFromUpdate)
+		apiV1Router.Route("/updates", func(relRouter chi.Router) {
+			relRouter.Post("/recipients", h.ListEligibleRecipientEmailsFromUpdate)
 		})
 	})
 }

@@ -195,6 +195,73 @@ func (_c *MockRepository_ListFriendByEmail_Call) RunAndReturn(run func(context.C
 	return _c
 }
 
+// ListTwoEmailsCommonFriends provides a mock function with given fields: ctx, primaryEmail, secondadryEmail
+func (_m *MockRepository) ListTwoEmailsCommonFriends(ctx context.Context, primaryEmail string, secondadryEmail string) ([]model.User, int64, error) {
+	ret := _m.Called(ctx, primaryEmail, secondadryEmail)
+
+	if len(ret) == 0 {
+		panic("no return value specified for ListTwoEmailsCommonFriends")
+	}
+
+	var r0 []model.User
+	var r1 int64
+	var r2 error
+	if rf, ok := ret.Get(0).(func(context.Context, string, string) ([]model.User, int64, error)); ok {
+		return rf(ctx, primaryEmail, secondadryEmail)
+	}
+	if rf, ok := ret.Get(0).(func(context.Context, string, string) []model.User); ok {
+		r0 = rf(ctx, primaryEmail, secondadryEmail)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).([]model.User)
+		}
+	}
+
+	if rf, ok := ret.Get(1).(func(context.Context, string, string) int64); ok {
+		r1 = rf(ctx, primaryEmail, secondadryEmail)
+	} else {
+		r1 = ret.Get(1).(int64)
+	}
+
+	if rf, ok := ret.Get(2).(func(context.Context, string, string) error); ok {
+		r2 = rf(ctx, primaryEmail, secondadryEmail)
+	} else {
+		r2 = ret.Error(2)
+	}
+
+	return r0, r1, r2
+}
+
+// MockRepository_ListTwoEmailsCommonFriends_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'ListTwoEmailsCommonFriends'
+type MockRepository_ListTwoEmailsCommonFriends_Call struct {
+	*mock.Call
+}
+
+// ListTwoEmailsCommonFriends is a helper method to define mock.On call
+//   - ctx context.Context
+//   - primaryEmail string
+//   - secondadryEmail string
+func (_e *MockRepository_Expecter) ListTwoEmailsCommonFriends(ctx interface{}, primaryEmail interface{}, secondadryEmail interface{}) *MockRepository_ListTwoEmailsCommonFriends_Call {
+	return &MockRepository_ListTwoEmailsCommonFriends_Call{Call: _e.mock.On("ListTwoEmailsCommonFriends", ctx, primaryEmail, secondadryEmail)}
+}
+
+func (_c *MockRepository_ListTwoEmailsCommonFriends_Call) Run(run func(ctx context.Context, primaryEmail string, secondadryEmail string)) *MockRepository_ListTwoEmailsCommonFriends_Call {
+	_c.Call.Run(func(args mock.Arguments) {
+		run(args[0].(context.Context), args[1].(string), args[2].(string))
+	})
+	return _c
+}
+
+func (_c *MockRepository_ListTwoEmailsCommonFriends_Call) Return(_a0 []model.User, _a1 int64, _a2 error) *MockRepository_ListTwoEmailsCommonFriends_Call {
+	_c.Call.Return(_a0, _a1, _a2)
+	return _c
+}
+
+func (_c *MockRepository_ListTwoEmailsCommonFriends_Call) RunAndReturn(run func(context.Context, string, string) ([]model.User, int64, error)) *MockRepository_ListTwoEmailsCommonFriends_Call {
+	_c.Call.Return(run)
+	return _c
+}
+
 // NewMockRepository creates a new instance of MockRepository. It also registers a testing interface on the mock and a cleanup function to assert the mocks expectations.
 // The first argument is typically a *testing.T value.
 func NewMockRepository(t interface {

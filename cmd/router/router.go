@@ -27,6 +27,7 @@ func v1Route(r chi.Router, h v1.Handler) {
 		apiV1Router.Route("/relationship", func(relRouter chi.Router) {
 			relRouter.Post("/friend", h.CreateFriendConn)
 			relRouter.Post("/friend/list", h.ListFriendByEmail)
+			relRouter.Post("/friend/list-common", h.ListTwoEmailsCommonFriends)
 		})
 	})
 }

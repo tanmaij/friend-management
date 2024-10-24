@@ -17,6 +17,9 @@ type Repository interface {
 
 	// ListFriendByEmail lists friends for an email, returning a list of users and total count
 	ListFriendByEmail(ctx context.Context, email string) ([]model.User, int64, error)
+
+	// ListTwoEmailsCommonFriends retrieves the list of common friends between two email addresses from the database
+	ListTwoEmailsCommonFriends(ctx context.Context, primaryEmail string, secondadryEmail string) ([]model.User, int64, error)
 }
 
 type impl struct {

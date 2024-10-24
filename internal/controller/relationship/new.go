@@ -14,6 +14,9 @@ type Controller interface {
 
 	// ListFriendsByEmail handles the logic for a listing friends for an email address
 	ListFriendByEmail(ctx context.Context, inp ListFriendByEmailInput) (ListFriendByEmailOutput, error)
+
+	// ListTwoEmailCommonFriends retrieves a list of common friends between two email addresses.
+	ListTwoEmailCommonFriends(ctx context.Context, inp ListTwoEmailCommonFriendsInput) (ListTwoEmailCommonFriendsOutput, error)
 }
 
 type impl struct {

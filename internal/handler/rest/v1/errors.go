@@ -8,13 +8,14 @@ import (
 )
 
 var (
-	errInternalServer             = httpUtil.Error{Status: http.StatusInternalServerError, Code: "internal_server_error", Message: "Internal server error"}
-	errInvalidRequestBody         = httpUtil.Error{Status: http.StatusBadRequest, Code: "invalid_request_body", Message: "Invalid request body"}
-	errInvalidGivenEmail          = httpUtil.Error{Status: http.StatusBadRequest, Code: "invalid_given_email", Message: "Invalid given email"}
-	errUserNotFoundWithGivenEmail = httpUtil.Error{Status: http.StatusBadRequest, Code: "user_not_found_with_given_email", Message: "User not found with given email"}
-	errAlreadyFriends             = httpUtil.Error{Status: http.StatusBadRequest, Code: "already_friends", Message: "Already friends"}
-	errAlreadyBlocked             = httpUtil.Error{Status: http.StatusBadRequest, Code: "already_blocked", Message: "Already blocked"}
-	errCannotBeFriendWithSelf     = httpUtil.Error{Status: http.StatusBadRequest, Code: "cannot_be_friend_with_self", Message: "Cannot be friend with self"}
+	errInternalServer                = httpUtil.Error{Status: http.StatusInternalServerError, Code: "internal_server_error", Message: "Internal server error"}
+	errInvalidRequestBody            = httpUtil.Error{Status: http.StatusBadRequest, Code: "invalid_request_body", Message: "Invalid request body"}
+	errInvalidGivenEmail             = httpUtil.Error{Status: http.StatusBadRequest, Code: "invalid_given_email", Message: "Invalid given email"}
+	errUserNotFoundWithGivenEmail    = httpUtil.Error{Status: http.StatusBadRequest, Code: "user_not_found_with_given_email", Message: "User not found with given email"}
+	errAlreadyFriends                = httpUtil.Error{Status: http.StatusBadRequest, Code: "already_friends", Message: "Already friends"}
+	errAlreadyBlocked                = httpUtil.Error{Status: http.StatusBadRequest, Code: "already_blocked", Message: "Already blocked"}
+	errCannotBeFriendWithSelf        = httpUtil.Error{Status: http.StatusBadRequest, Code: "cannot_be_friend_with_self", Message: "Cannot be friend with self"}
+	errCannotGetCommonFriendWithSelf = httpUtil.Error{Status: http.StatusBadRequest, Code: "cannot_get_common_friends_with_self", Message: "Cannot get common friends with self"}
 )
 
 func convertErrorFromController(err error) httpUtil.Error {

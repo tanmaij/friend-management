@@ -125,6 +125,63 @@ func (_c *MockController_ListFriendByEmail_Call) RunAndReturn(run func(context.C
 	return _c
 }
 
+// ListTwoEmailCommonFriends provides a mock function with given fields: ctx, inp
+func (_m *MockController) ListTwoEmailCommonFriends(ctx context.Context, inp ListTwoEmailCommonFriendsInput) (ListTwoEmailCommonFriendsOutput, error) {
+	ret := _m.Called(ctx, inp)
+
+	if len(ret) == 0 {
+		panic("no return value specified for ListTwoEmailCommonFriends")
+	}
+
+	var r0 ListTwoEmailCommonFriendsOutput
+	var r1 error
+	if rf, ok := ret.Get(0).(func(context.Context, ListTwoEmailCommonFriendsInput) (ListTwoEmailCommonFriendsOutput, error)); ok {
+		return rf(ctx, inp)
+	}
+	if rf, ok := ret.Get(0).(func(context.Context, ListTwoEmailCommonFriendsInput) ListTwoEmailCommonFriendsOutput); ok {
+		r0 = rf(ctx, inp)
+	} else {
+		r0 = ret.Get(0).(ListTwoEmailCommonFriendsOutput)
+	}
+
+	if rf, ok := ret.Get(1).(func(context.Context, ListTwoEmailCommonFriendsInput) error); ok {
+		r1 = rf(ctx, inp)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
+// MockController_ListTwoEmailCommonFriends_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'ListTwoEmailCommonFriends'
+type MockController_ListTwoEmailCommonFriends_Call struct {
+	*mock.Call
+}
+
+// ListTwoEmailCommonFriends is a helper method to define mock.On call
+//   - ctx context.Context
+//   - inp ListTwoEmailCommonFriendsInput
+func (_e *MockController_Expecter) ListTwoEmailCommonFriends(ctx interface{}, inp interface{}) *MockController_ListTwoEmailCommonFriends_Call {
+	return &MockController_ListTwoEmailCommonFriends_Call{Call: _e.mock.On("ListTwoEmailCommonFriends", ctx, inp)}
+}
+
+func (_c *MockController_ListTwoEmailCommonFriends_Call) Run(run func(ctx context.Context, inp ListTwoEmailCommonFriendsInput)) *MockController_ListTwoEmailCommonFriends_Call {
+	_c.Call.Run(func(args mock.Arguments) {
+		run(args[0].(context.Context), args[1].(ListTwoEmailCommonFriendsInput))
+	})
+	return _c
+}
+
+func (_c *MockController_ListTwoEmailCommonFriends_Call) Return(_a0 ListTwoEmailCommonFriendsOutput, _a1 error) *MockController_ListTwoEmailCommonFriends_Call {
+	_c.Call.Return(_a0, _a1)
+	return _c
+}
+
+func (_c *MockController_ListTwoEmailCommonFriends_Call) RunAndReturn(run func(context.Context, ListTwoEmailCommonFriendsInput) (ListTwoEmailCommonFriendsOutput, error)) *MockController_ListTwoEmailCommonFriends_Call {
+	_c.Call.Return(run)
+	return _c
+}
+
 // NewMockController creates a new instance of MockController. It also registers a testing interface on the mock and a cleanup function to assert the mocks expectations.
 // The first argument is typically a *testing.T value.
 func NewMockController(t interface {

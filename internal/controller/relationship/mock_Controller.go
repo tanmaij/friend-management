@@ -21,6 +21,53 @@ func (_m *MockController) EXPECT() *MockController_Expecter {
 	return &MockController_Expecter{mock: &_m.Mock}
 }
 
+// Block provides a mock function with given fields: ctx, inp
+func (_m *MockController) Block(ctx context.Context, inp BlockInput) error {
+	ret := _m.Called(ctx, inp)
+
+	if len(ret) == 0 {
+		panic("no return value specified for Block")
+	}
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func(context.Context, BlockInput) error); ok {
+		r0 = rf(ctx, inp)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
+}
+
+// MockController_Block_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'Block'
+type MockController_Block_Call struct {
+	*mock.Call
+}
+
+// Block is a helper method to define mock.On call
+//   - ctx context.Context
+//   - inp BlockInput
+func (_e *MockController_Expecter) Block(ctx interface{}, inp interface{}) *MockController_Block_Call {
+	return &MockController_Block_Call{Call: _e.mock.On("Block", ctx, inp)}
+}
+
+func (_c *MockController_Block_Call) Run(run func(ctx context.Context, inp BlockInput)) *MockController_Block_Call {
+	_c.Call.Run(func(args mock.Arguments) {
+		run(args[0].(context.Context), args[1].(BlockInput))
+	})
+	return _c
+}
+
+func (_c *MockController_Block_Call) Return(_a0 error) *MockController_Block_Call {
+	_c.Call.Return(_a0)
+	return _c
+}
+
+func (_c *MockController_Block_Call) RunAndReturn(run func(context.Context, BlockInput) error) *MockController_Block_Call {
+	_c.Call.Return(run)
+	return _c
+}
+
 // CreateFriendConn provides a mock function with given fields: ctx, inp
 func (_m *MockController) CreateFriendConn(ctx context.Context, inp CreateFriendConnInp) error {
 	ret := _m.Called(ctx, inp)

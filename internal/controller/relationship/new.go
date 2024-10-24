@@ -20,6 +20,9 @@ type Controller interface {
 
 	// Subscribe
 	Subscribe(ctx context.Context, inp SubscribeInput) error
+
+	// Block blocks updates from an email address
+	Block(ctx context.Context, inp BlockInput) error
 }
 
 type impl struct {

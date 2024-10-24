@@ -22,8 +22,9 @@ var (
 	errInvalidTargetEmail              = httpUtil.Error{Status: http.StatusBadRequest, Code: "invalid_target_email", Message: "Invalid target email"}
 	errRequestorNotFoundWithGivenEmail = httpUtil.Error{Status: http.StatusBadRequest, Code: "requestor_not_found_with_given_email", Message: "Requestor not found with given email"}
 	errTargetNotFoundWithGivenEmail    = httpUtil.Error{Status: http.StatusBadRequest, Code: "target_user_not_found_with_given_email", Message: "Target user not found with given email"}
-	errCannotSelfSubscribe             = httpUtil.Error{Status: http.StatusBadRequest, Code: "cannot_be_self_subscribe", Message: "Cannot self subcribe"}
+	errCannotSelfSubscribe             = httpUtil.Error{Status: http.StatusBadRequest, Code: "cannot_self_subscribe", Message: "Cannot self subcribe"}
 	errAlreadySubscribed               = httpUtil.Error{Status: http.StatusBadRequest, Code: "already_subscribed", Message: "Already subscribed"}
+	errCannotSelfBlock                 = httpUtil.Error{Status: http.StatusBadRequest, Code: "cannot_self_block", Message: "Cannot self block"}
 )
 
 func convertErrorFromController(err error) httpUtil.Error {

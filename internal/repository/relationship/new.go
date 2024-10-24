@@ -20,6 +20,8 @@ type Repository interface {
 
 	// ListTwoEmailsCommonFriends retrieves the list of common friends between two email addresses from the database
 	ListTwoEmailsCommonFriends(ctx context.Context, primaryEmail string, secondadryEmail string) ([]model.User, int64, error)
+
+	FindEligibleRecipientEmailsWithMentioned(ctx context.Context, sender string, mentionedEmails []string) ([]string, error)
 }
 
 type impl struct {

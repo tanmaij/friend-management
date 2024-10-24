@@ -182,6 +182,53 @@ func (_c *MockController_ListTwoEmailCommonFriends_Call) RunAndReturn(run func(c
 	return _c
 }
 
+// Subscribe provides a mock function with given fields: ctx, inp
+func (_m *MockController) Subscribe(ctx context.Context, inp SubscribeInput) error {
+	ret := _m.Called(ctx, inp)
+
+	if len(ret) == 0 {
+		panic("no return value specified for Subscribe")
+	}
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func(context.Context, SubscribeInput) error); ok {
+		r0 = rf(ctx, inp)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
+}
+
+// MockController_Subscribe_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'Subscribe'
+type MockController_Subscribe_Call struct {
+	*mock.Call
+}
+
+// Subscribe is a helper method to define mock.On call
+//   - ctx context.Context
+//   - inp SubscribeInput
+func (_e *MockController_Expecter) Subscribe(ctx interface{}, inp interface{}) *MockController_Subscribe_Call {
+	return &MockController_Subscribe_Call{Call: _e.mock.On("Subscribe", ctx, inp)}
+}
+
+func (_c *MockController_Subscribe_Call) Run(run func(ctx context.Context, inp SubscribeInput)) *MockController_Subscribe_Call {
+	_c.Call.Run(func(args mock.Arguments) {
+		run(args[0].(context.Context), args[1].(SubscribeInput))
+	})
+	return _c
+}
+
+func (_c *MockController_Subscribe_Call) Return(_a0 error) *MockController_Subscribe_Call {
+	_c.Call.Return(_a0)
+	return _c
+}
+
+func (_c *MockController_Subscribe_Call) RunAndReturn(run func(context.Context, SubscribeInput) error) *MockController_Subscribe_Call {
+	_c.Call.Return(run)
+	return _c
+}
+
 // NewMockController creates a new instance of MockController. It also registers a testing interface on the mock and a cleanup function to assert the mocks expectations.
 // The first argument is typically a *testing.T value.
 func NewMockController(t interface {

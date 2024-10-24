@@ -1,7 +1,7 @@
-.PHONY: setup teardown run start run-build db db-migrate db-migrate-down gen-migration-file gen-mocks gen-orm test help vendor
+.PHONY: setup teardown run start run-build db db-migrate db-migrate-down gen-migration-file gen-mocks gen-orm test help vendor init-env
 
 # App props
-APP_VERSION := 0.8.21
+APP_VERSION := $$APP_VERSION
 
 # Variable
 DEV_SERVICE := app
@@ -20,12 +20,13 @@ help:
 	@echo "  db                 : Start the database"
 	@echo "  db-migrate         : Migrate database up"
 	@echo "  db-migrate-down    : Migrate database down"
-	@echo "  gen-migration-file  : Generate new migration file"
+	@echo "  gen-migration-file : Generate new migration file"
 	@echo "  gen-mocks          : Generate mocks"
 	@echo "  gen-model          : Generate models"
+	@echo "  init-env           : Initialize the .env file from .env.example"
 
 # Setup and Teardown
-setup: db db-migrate
+setup: init-env db db-migrate
 
 teardown:
 	@echo "Teardown: stopping and removing containers..."
@@ -33,7 +34,7 @@ teardown:
 	@docker compose rm --force --stop -v
 
 # App
-start: db db-migrate run
+start: init-env db db-migrate run
 
 run:
 	@echo "Running application..."
@@ -41,7 +42,7 @@ run:
 
 build:
 	@echo "Building application..."
-	@export APP_VERSION=$(APP_VERSION) && docker compose up build
+	@docker compose up build
 
 clear-build:
 	@echo "Clearing old builds and images..."
@@ -83,3 +84,7 @@ gen-mocks:
 gen-model:
 	@echo "Generating models..."
 	@docker compose run --rm $(DEV_SERVICE) sqlboiler psql -c sqlboiler.yaml
+
+# environment
+init-env:
+	@docker compose --env-file .env.example run --rm $(DEV_SERVICE) sh -c 'if [ ! -f .env ]; then cp .env.example .env && echo ".env created from .env.example"; else echo ".env already exists"; fi'

@@ -19,8 +19,14 @@ func IsEmailValid(e string) bool {
 	return true
 }
 
-// GetEmailsInText find emails in text
-func GetEmailsInText(text string) []string {
+// ExtractEmailsFromText extracts emails in text
+func ExtractEmailsFromText(text string) []string {
 	r := regexp.MustCompile(`[a-zA-Z0-9_+&*-]+(?:\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,24}`)
-	return r.FindAllString(text, -1)
+
+	rs := r.FindAllString(text, -1)
+	if rs == nil {
+		return []string{}
+	}
+
+	return rs
 }

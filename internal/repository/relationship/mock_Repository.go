@@ -69,6 +69,66 @@ func (_c *MockRepository_Create_Call) RunAndReturn(run func(context.Context, mod
 	return _c
 }
 
+// FindEligibleRecipientEmailsWithMentioned provides a mock function with given fields: ctx, sender, mentionedEmails
+func (_m *MockRepository) FindEligibleRecipientEmailsWithMentioned(ctx context.Context, sender string, mentionedEmails []string) ([]string, error) {
+	ret := _m.Called(ctx, sender, mentionedEmails)
+
+	if len(ret) == 0 {
+		panic("no return value specified for FindEligibleRecipientEmailsWithMentioned")
+	}
+
+	var r0 []string
+	var r1 error
+	if rf, ok := ret.Get(0).(func(context.Context, string, []string) ([]string, error)); ok {
+		return rf(ctx, sender, mentionedEmails)
+	}
+	if rf, ok := ret.Get(0).(func(context.Context, string, []string) []string); ok {
+		r0 = rf(ctx, sender, mentionedEmails)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).([]string)
+		}
+	}
+
+	if rf, ok := ret.Get(1).(func(context.Context, string, []string) error); ok {
+		r1 = rf(ctx, sender, mentionedEmails)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
+// MockRepository_FindEligibleRecipientEmailsWithMentioned_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'FindEligibleRecipientEmailsWithMentioned'
+type MockRepository_FindEligibleRecipientEmailsWithMentioned_Call struct {
+	*mock.Call
+}
+
+// FindEligibleRecipientEmailsWithMentioned is a helper method to define mock.On call
+//   - ctx context.Context
+//   - sender string
+//   - mentionedEmails []string
+func (_e *MockRepository_Expecter) FindEligibleRecipientEmailsWithMentioned(ctx interface{}, sender interface{}, mentionedEmails interface{}) *MockRepository_FindEligibleRecipientEmailsWithMentioned_Call {
+	return &MockRepository_FindEligibleRecipientEmailsWithMentioned_Call{Call: _e.mock.On("FindEligibleRecipientEmailsWithMentioned", ctx, sender, mentionedEmails)}
+}
+
+func (_c *MockRepository_FindEligibleRecipientEmailsWithMentioned_Call) Run(run func(ctx context.Context, sender string, mentionedEmails []string)) *MockRepository_FindEligibleRecipientEmailsWithMentioned_Call {
+	_c.Call.Run(func(args mock.Arguments) {
+		run(args[0].(context.Context), args[1].(string), args[2].([]string))
+	})
+	return _c
+}
+
+func (_c *MockRepository_FindEligibleRecipientEmailsWithMentioned_Call) Return(_a0 []string, _a1 error) *MockRepository_FindEligibleRecipientEmailsWithMentioned_Call {
+	_c.Call.Return(_a0, _a1)
+	return _c
+}
+
+func (_c *MockRepository_FindEligibleRecipientEmailsWithMentioned_Call) RunAndReturn(run func(context.Context, string, []string) ([]string, error)) *MockRepository_FindEligibleRecipientEmailsWithMentioned_Call {
+	_c.Call.Return(run)
+	return _c
+}
+
 // ListByTwoUserIDs provides a mock function with given fields: ctx, primaryUserID, secondaryUserID
 func (_m *MockRepository) ListByTwoUserIDs(ctx context.Context, primaryUserID int, secondaryUserID int) ([]model.Relationship, error) {
 	ret := _m.Called(ctx, primaryUserID, secondaryUserID)

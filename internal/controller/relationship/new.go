@@ -23,6 +23,8 @@ type Controller interface {
 
 	// Block blocks updates from an email address
 	Block(ctx context.Context, inp BlockInput) error
+
+	ListEligibleRecipientEmailsFromUpdate(ctx context.Context, inp ListEligibleRecipientEmailsFromUpdateInput) (ListEligibleRecipientEmailsFromUpdateOutput, error)
 }
 
 type impl struct {

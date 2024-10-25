@@ -10,7 +10,7 @@ import (
 	"github.com/volatiletech/sqlboiler/v4/queries/qm"
 )
 
-// GetByEmail
+// GetByEmail returns user from database with given email
 func (i *impl) GetByEmail(ctx context.Context, email string) (model.User, error) {
 	user, err := model.Users(qm.Where(model.UserColumns.Email+" = ?", email)).One(ctx, i.sqlDB)
 	if err != nil {
@@ -19,6 +19,10 @@ func (i *impl) GetByEmail(ctx context.Context, email string) (model.User, error)
 		}
 
 		return model.User{}, errors.WithStack(err)
+	}
+
+	if user == nil {
+		return model.User{}, ErrUserNotFound
 	}
 
 	return *user, nil

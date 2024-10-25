@@ -158,7 +158,7 @@ func TestHandler_Block(t *testing.T) {
 				ctrlMock.EXPECT().Block(r.Context(), tc.mockBlock.input).Return(tc.mockBlock.outputErr)
 			}
 
-			h := New(ctrlMock)
+			h := New(ctrlMock, nil)
 
 			// WHEN
 			h.Block(w, r)

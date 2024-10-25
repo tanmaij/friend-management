@@ -189,7 +189,7 @@ func TestHandler_CreateFriendConn(t *testing.T) {
 				ctrlMock.EXPECT().CreateFriendConn(r.Context(), tc.mockCreateFriendConn.input).Return(tc.mockCreateFriendConn.outputErr)
 			}
 
-			h := New(ctrlMock)
+			h := New(ctrlMock, nil)
 
 			// WHEN
 			h.CreateFriendConn(w, r)

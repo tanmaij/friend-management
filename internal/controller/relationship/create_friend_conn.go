@@ -47,11 +47,16 @@ func (i *impl) CreateFriendConn(ctx context.Context, inp CreateFriendConnInp) er
 		return err
 	}
 
-	return i.relationshipRepo.Create(ctx, model.Relationship{
+	if err := i.relationshipRepo.Create(ctx, model.Relationship{
 		RequesterID: foundPrimaryUser.ID,
 		TargetID:    foundSecondaryUser.ID,
 		Type:        model.RelationshipTypeFriend,
-	})
+	}); err != nil {
+		log.Printf("error creating relationship: %v", err)
+		return err
+	}
+
+	return nil
 }
 
 func checkFriendship(rels []model.Relationship) error {

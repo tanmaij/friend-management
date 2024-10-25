@@ -2,6 +2,7 @@ package v1
 
 import (
 	"encoding/json"
+	"errors"
 	"net/http"
 	"strings"
 
@@ -47,7 +48,8 @@ func (h Handler) ListEligibleRecipientEmailsFromUpdate(w http.ResponseWriter, r 
 	}
 
 	if err := reqData.validate(); err != nil {
-		if expectedErr, ok := err.(httpUtil.Error); ok {
+		var expectedErr httpUtil.Error
+		if errors.As(err, &expectedErr) {
 			httpUtil.WriteErrorToHttpResponseWriter(w, expectedErr)
 			return
 		}

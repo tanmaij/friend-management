@@ -47,11 +47,16 @@ func (i *impl) Block(ctx context.Context, inp BlockInput) error {
 		return err
 	}
 
-	return i.relationshipRepo.Create(ctx, model.Relationship{
+	if err := i.relationshipRepo.Create(ctx, model.Relationship{
 		RequesterID: foundRequestor.ID,
 		TargetID:    foundTargetUser.ID,
 		Type:        model.RelationshipTypeBlock,
-	})
+	}); err != nil {
+		log.Printf("error creating relationship: %v", err)
+		return err
+	}
+
+	return nil
 }
 
 func checkValidBlocking(foundRequestor model.User, foundTargetUser model.User, rels []model.Relationship) error {

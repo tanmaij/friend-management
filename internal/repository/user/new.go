@@ -9,8 +9,14 @@ import (
 
 // Repository accesses user data
 type Repository interface {
-	// GetByEmail get an user from database with given email
+	// GetByEmail returns user from database with given email
 	GetByEmail(ctx context.Context, email string) (model.User, error)
+
+	// Create inserts a user to database
+	Create(ctx context.Context, user model.User) error
+
+	// ExistsByEmail checks if user exists with given email
+	ExistsByEmail(ctx context.Context, email string) (bool, error)
 }
 
 type impl struct {

@@ -9,13 +9,13 @@ import (
 	userRepo "github.com/tanmaij/friend-management/internal/repository/user"
 )
 
-// SubscribeInput
+// SubscribeInput includes payload to subscribe for updates
 type SubscribeInput struct {
 	RequestorEmail string
 	TargetEmail    string
 }
 
-// Subscribe
+// Subscribe subscribes for updates from email
 func (i *impl) Subscribe(ctx context.Context, inp SubscribeInput) error {
 	foundRequestor, err := i.userRepo.GetByEmail(ctx, inp.RequestorEmail)
 	if err != nil {
@@ -47,11 +47,16 @@ func (i *impl) Subscribe(ctx context.Context, inp SubscribeInput) error {
 		return err
 	}
 
-	return i.relationshipRepo.Create(ctx, model.Relationship{
+	if err := i.relationshipRepo.Create(ctx, model.Relationship{
 		RequesterID: foundRequestor.ID,
 		TargetID:    foundTargetUser.ID,
 		Type:        model.RelationshipTypeSubscribe,
-	})
+	}); err != nil {
+		log.Printf("error creating relationship: %v", err)
+		return err
+	}
+
+	return nil
 }
 
 func checkValidSubscription(foundRequestor model.User, foundTargetUser model.User, rels []model.Relationship) error {

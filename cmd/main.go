@@ -9,6 +9,7 @@ import (
 
 	"github.com/tanmaij/friend-management/cmd/router"
 	relationshipCtrl "github.com/tanmaij/friend-management/internal/controller/relationship"
+	userCtrl "github.com/tanmaij/friend-management/internal/controller/user"
 	"github.com/tanmaij/friend-management/internal/handler"
 	relationshipRepo "github.com/tanmaij/friend-management/internal/repository/relationship"
 	userRepo "github.com/tanmaij/friend-management/internal/repository/user"
@@ -39,8 +40,9 @@ func main() {
 	userRepoInstance := userRepo.New(sqlDB)
 
 	relationshipCtrlInstance := relationshipCtrl.New(relationshipRepoInstance, userRepoInstance)
+	userCtrlInstance := userCtrl.New(userRepoInstance)
 
-	handlerInstance := handler.New(relationshipCtrlInstance)
+	handlerInstance := handler.New(relationshipCtrlInstance, userCtrlInstance)
 
 	r := router.InitRouter(handlerInstance)
 

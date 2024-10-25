@@ -35,5 +35,9 @@ func v1Route(r chi.Router, h v1.Handler) {
 		apiV1Router.Route("/updates", func(relRouter chi.Router) {
 			relRouter.Post("/recipients", h.ListEligibleRecipientEmailsFromUpdate)
 		})
+
+		apiV1Router.Route("/users", func(relRouter chi.Router) {
+			relRouter.Post("/", h.CreateUser)
+		})
 	})
 }

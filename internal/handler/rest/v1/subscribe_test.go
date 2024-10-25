@@ -166,7 +166,7 @@ func TestHandler_Subscribe(t *testing.T) {
 				ctrlMock.EXPECT().Subscribe(r.Context(), tc.mockSubscribe.input).Return(tc.mockSubscribe.outputErr)
 			}
 
-			h := New(ctrlMock)
+			h := New(ctrlMock, nil)
 
 			// WHEN
 			h.Subscribe(w, r)

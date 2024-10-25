@@ -2,6 +2,7 @@ package handler
 
 import (
 	"github.com/tanmaij/friend-management/internal/controller/relationship"
+	"github.com/tanmaij/friend-management/internal/controller/user"
 	restV1 "github.com/tanmaij/friend-management/internal/handler/rest/v1"
 )
 
@@ -11,8 +12,8 @@ type Handler struct {
 }
 
 // New initializes a new Handler with the provided controllers.
-func New(relCtrl relationship.Controller) Handler {
+func New(relCtrl relationship.Controller, userCtrl user.Controller) Handler {
 	return Handler{
-		RESTV1Handler: restV1.New(relCtrl),
+		RESTV1Handler: restV1.New(relCtrl, userCtrl),
 	}
 }

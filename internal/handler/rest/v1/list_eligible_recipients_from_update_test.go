@@ -115,7 +115,7 @@ func TestHandler_ListEligibleRecipientEmailsFromUpdate(t *testing.T) {
 				ctrlMock.EXPECT().ListEligibleRecipientEmailsFromUpdate(r.Context(), tc.mockListEligibleRecipientEmailsFromUpdate.input).Return(tc.mockListEligibleRecipientEmailsFromUpdate.output, tc.mockListEligibleRecipientEmailsFromUpdate.outputErr)
 			}
 
-			h := New(ctrlMock)
+			h := New(ctrlMock, nil)
 
 			// WHEN
 			h.ListEligibleRecipientEmailsFromUpdate(w, r)

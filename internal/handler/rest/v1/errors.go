@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	relationshipCtrl "github.com/tanmaij/friend-management/internal/controller/relationship"
+	userCtrl "github.com/tanmaij/friend-management/internal/controller/user"
 	httpUtil "github.com/tanmaij/friend-management/pkg/utils/http"
 )
 
@@ -26,6 +27,7 @@ var (
 	errAlreadySubscribed               = httpUtil.Error{Status: http.StatusBadRequest, Code: "already_subscribed", Message: "Already subscribed"}
 	errCannotSelfBlock                 = httpUtil.Error{Status: http.StatusBadRequest, Code: "cannot_self_block", Message: "Cannot self block"}
 	errSenderEmailIsRequired           = httpUtil.Error{Status: http.StatusBadRequest, Code: "cannot_sender_email_is_required", Message: "Sender email is required"}
+	errUserAlreadyExists               = httpUtil.Error{Status: http.StatusBadRequest, Code: "user_already_exists", Message: "User already exists"}
 )
 
 func convertErrorFromController(err error) httpUtil.Error {
@@ -38,11 +40,13 @@ func convertErrorFromController(err error) httpUtil.Error {
 		return errAlreadyFriends
 	case relationshipCtrl.ErrAlreadySubscribed:
 		return errAlreadySubscribed
-
 	case relationshipCtrl.ErrRequestorNotFoundWithGivenEmail:
 		return errRequestorNotFoundWithGivenEmail
 	case relationshipCtrl.ErrTargetUserNotFoundWithGivenEmail:
 		return errTargetNotFoundWithGivenEmail
+
+	case userCtrl.ErrUserAlreadyExists:
+		return errUserAlreadyExists
 	default:
 		return errInternalServer
 	}

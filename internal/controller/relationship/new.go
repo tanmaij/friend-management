@@ -12,13 +12,13 @@ type Controller interface {
 	// CreateFriendConn handles the logic for creating a friend connection
 	CreateFriendConn(ctx context.Context, inp CreateFriendConnInp) error
 
-	// ListFriendsByEmail handles the logic for a listing friends for an email address
+	// ListFriendByEmail handles the logic for a listing friends for an email address
 	ListFriendByEmail(ctx context.Context, inp ListFriendByEmailInput) (ListFriendByEmailOutput, error)
 
 	// ListTwoEmailCommonFriends retrieves a list of common friends between two email addresses.
 	ListTwoEmailCommonFriends(ctx context.Context, inp ListTwoEmailCommonFriendsInput) (ListTwoEmailCommonFriendsOutput, error)
 
-	// Subscribe
+	// Subscribe subscribes for updates from email
 	Subscribe(ctx context.Context, inp SubscribeInput) error
 
 	// Block blocks updates from an email address

@@ -117,7 +117,7 @@ func TestHandler_ListTwoEmailsCommonFriends(t *testing.T) {
 				ctrlMock.EXPECT().ListTwoEmailCommonFriends(r.Context(), tc.mockListTwoEmailCommonFriends.input).Return(tc.mockListTwoEmailCommonFriends.output, tc.mockListTwoEmailCommonFriends.outputErr)
 			}
 
-			h := New(ctrlMock)
+			h := New(ctrlMock, nil)
 
 			// WHEN
 			h.ListTwoEmailsCommonFriends(w, r)

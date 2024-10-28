@@ -13,8 +13,9 @@ This project implements a simple Friend Management system, structured as a RESTf
 
 ## Introduction
 
-friend-management is friend management project, some of its features are "Friend", "Subscribe", "Block", "Receive Updates" etc.
-The author is Mai NguyenT.
+`friend-management` is a simple friend management system structured as a RESTful API. This project allows users to manage friend relationships and interactions through key features such as creating friend connections, listing friends, listing mutual friends, subscribing to receive updates from an email, blocking updates from an email, and retrieving the list of people who are eligible to receive updates from an email's activities.
+
+The system is designed to provide an easy-to-use and scalable API, enabling other applications or services to integrate friend management capabilities seamlessly. Developed by Mai NguyenT.
 
 ## Prerequisites
 

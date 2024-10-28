@@ -1,12 +1,15 @@
-.PHONY: setup teardown run start run-build db db-migrate db-migrate-down gen-migration-file gen-mocks gen-orm test help vendor init-env
+# Include environment variables
+include .env
+
+.PHONY: setup teardown run start build clear-build db db-migrate db-migrate-down gen-migration-file gen-mocks gen-orm test help vendor init-env
 
 # App props
-APP_VERSION := $$APP_VERSION
+APP_VERSION := $(APP_VERSION)
 
 # Variable
 DEV_SERVICE := app
 DB_SERVICE := postgres
-DB_URL := $$DB_URL
+DB_URL := $(DB_URL)
 
 # Help
 help:
@@ -14,7 +17,8 @@ help:
 	@echo "  setup              : Setup the environment (start db and migrate)"
 	@echo "  teardown           : Stop and remove containers"
 	@echo "  run                : Run the application"
-	@echo "  run-build          : Build the application"
+	@echo "  build          	: Build the application and run"
+	@echo "  clear-build        : Clear current app version"
 	@echo "  vendor          	: Update vendor"
 	@echo "  test               : Run tests"
 	@echo "  db                 : Start the database"
@@ -46,9 +50,8 @@ build:
 
 clear-build:
 	@echo "Clearing old builds and images..."
-	@docker compose down --volumes build
 	@docker compose rm --force --stop -v build
-	@docker rmi -f friend-management-api:v${APP_VERSION}
+	@docker rmi -f friend-management-api:${APP_VERSION}
 
 test:
 	@echo "Running tests..."

@@ -12,6 +12,8 @@ import (
 
 // ListTwoEmailsCommonFriends retrieves the list of common friends between two email addresses from the database
 func (i *impl) ListTwoEmailsCommonFriends(ctx context.Context, primaryEmail string, secondadryEmail string) ([]model.User, int64, error) {
+	expectedCount := 2
+
 	var queries = []qm.QueryMod{
 		qm.Select(model.TableNames.Users + ".*"),
 		qm.InnerJoin(
@@ -46,6 +48,7 @@ func (i *impl) ListTwoEmailsCommonFriends(ctx context.Context, primaryEmail stri
 		),
 		qm.GroupBy(fmt.Sprintf("%s.%s", model.TableNames.Users, model.UserColumns.ID)),
 		qm.OrderBy(fmt.Sprintf("%s.%s ASC", model.TableNames.Users, model.UserColumns.ID)),
+		qm.Having(fmt.Sprintf("COUNT(%s.%s) >= ?", model.TableNames.Users, model.UserColumns.ID), expectedCount),
 	}
 
 	foundSlice, err := model.Users(

@@ -394,7 +394,7 @@ Endpoints: `POST /api/v1/relationships/friends/list-common`
 - Failure: invalid_given_email
 
 ```json
-{"message":"Invalid_given_email","code":"invalid_given_email","status":400}
+{"message":"Invalid given email","code":"invalid_given_email","status":400}
 ```
 
 ### 7. Create user:
@@ -436,7 +436,9 @@ Endpoints: `POST /api/v1/relationships/friends/list-common`
 ```
 
 ## Technologies
-- Golang 1.23.2
-- Docker
-- Postgres 11
-- SQLBoiler, Mockery, Go-migrate
+- **Golang 1.23.2**: Main programming language used for the API development.
+- **Docker**: Containerization tool for application deployment and environment consistency.
+- **Postgres 15**: Database used to store and manage application data.
+- **SQLBoiler**: ORM for Go, used for generating strongly-typed models.
+- **Mockery**: Mocking library to create mocks for unit testing.
+- **Go-migrate**: Database migration tool for handling schema changes.

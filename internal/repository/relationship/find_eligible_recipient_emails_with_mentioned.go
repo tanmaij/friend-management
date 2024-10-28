@@ -31,7 +31,7 @@ func (i *impl) FindEligibleRecipientEmailsWithMentioned(ctx context.Context, sen
         LEFT JOIN %s ON 
 			(%s.%s = '%s' AND %s.%s = combined_users.id AND %s.%s = sender.%s)
 			OR
-			(%s.%s = '%s' AND sender.%s IN (%s.%s, %s.%s))
+			(%s.%s = '%s' AND sender.%s IN (%s.%s, %s.%s) AND combined_users.%s IN (%s.%s, %s.%s))
 			OR
 			(%s.%s = '%s' AND %s.%s = combined_users.id AND %s.%s = sender.%s)
         WHERE combined_users.email <> $1
@@ -46,6 +46,7 @@ func (i *impl) FindEligibleRecipientEmailsWithMentioned(ctx context.Context, sen
 		model.TableNames.Relationships, model.RelationshipColumns.RequesterID,
 		model.TableNames.Relationships, model.RelationshipColumns.TargetID, model.UserColumns.ID,
 		model.TableNames.Relationships, model.RelationshipColumns.Type, model.RelationshipTypeFriend,
+		model.UserColumns.ID, model.TableNames.Relationships, model.RelationshipColumns.TargetID, model.TableNames.Relationships, model.RelationshipColumns.RequesterID,
 		model.UserColumns.ID, model.TableNames.Relationships, model.RelationshipColumns.TargetID, model.TableNames.Relationships, model.RelationshipColumns.RequesterID,
 		model.TableNames.Relationships, model.RelationshipColumns.Type, model.RelationshipTypeBlock,
 		model.TableNames.Relationships, model.RelationshipColumns.RequesterID,

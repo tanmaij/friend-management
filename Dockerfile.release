@@ -6,7 +6,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN go build --mod=vendor ./cmd/main.go
+RUN go build --mod=vendor ./cmd/server/main.go
 
 ## Stage 2: handle built binaries
 FROM alpine:3.14

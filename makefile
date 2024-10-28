@@ -38,7 +38,7 @@ start: init-env db db-migrate run
 
 run:
 	@echo "Running application..."
-	@docker compose run --rm --service-ports $(DEV_SERVICE) go run -mod=vendor cmd/main.go
+	@docker compose run --rm --service-ports $(DEV_SERVICE) go run -mod=vendor cmd/server/main.go
 
 build:
 	@echo "Building application..."
@@ -48,7 +48,7 @@ clear-build:
 	@echo "Clearing old builds and images..."
 	@docker compose down --volumes build
 	@docker compose rm --force --stop -v build
-	@docker rmi friend-management-api:v${APP_VERSION}
+	@docker rmi -f friend-management-api:v${APP_VERSION}
 
 test:
 	@echo "Running tests..."

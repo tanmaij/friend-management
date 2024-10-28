@@ -17,19 +17,6 @@ services:
     networks:
       - friend-mgt
 
-  build:
-    build:
-      context: ./
-      dockerfile: Dockerfile.release
-    image: friend-management-api:${APP_VERSION}
-    environment:
-      - DB_URL=${DB_URL}
-      - PORT=${PORT}
-    ports:
-      - ${PORT}:${PORT}
-    networks:
-      - friend-mgt
-
   postgres:
     image: postgres:15.1
     environment:

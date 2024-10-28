@@ -21,15 +21,15 @@ The system is designed to provide an easy-to-use and scalable API, enabling othe
 
 Before you continue, ensure you meet the following requirements:
 
-* You have installed Docker.
-* Your OS has `make tool`
-* You have a basic understanding of API.
+- **Docker**: Make sure you have `Docker` installed on your system.
+- **Make Tool**: Your operating system should have the `make` tool installed.
+- **Basic API Knowledge**: An understanding of APIs is required.
 
 ## How to run?
 
 Quick run: use the `make start` command to quick run the application in dev mode.
 
-Build: use `make setup` then use `make build` to run the application in built mode.
+Build: use `make setup` then use `make build` to build the application to docker image. You can also run it by using `make build-run`.
 
 You can also use the `make` or `make help` command to see usage guidelines.
 
